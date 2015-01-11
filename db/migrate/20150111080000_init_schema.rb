@@ -12,6 +12,8 @@ class InitSchema < ActiveRecord::Migration
       t.datetime :year_start
       t.datetime :year_end
 
+      t.integer :accountplan_id
+
       t.timestamps
     end
 
@@ -36,6 +38,8 @@ class InitSchema < ActiveRecord::Migration
       t.integer :number
       t.string :description
       t.datetime :date
+
+      t.integer :businessyear_id
 
       t.timestamps
     end

@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20150111080000) do
     t.integer  "year"
     t.datetime "year_start"
     t.datetime "year_end"
+    t.integer  "accountplan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -54,6 +55,7 @@ ActiveRecord::Schema.define(version: 20150111080000) do
     t.integer  "number"
     t.string   "description"
     t.datetime "date"
+    t.integer  "businessyear_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

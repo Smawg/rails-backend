@@ -7,13 +7,17 @@ class AccountplansController < BaseApiController
     end
   end
 
+  def index
+    render json: AccountPlan.all
+  end
+
   def show
     render json: @account
   end
 
   def create
     @accountplan = AccountPlan.new
-    @accountplan.assign_attributes(@json['accountplan'])
+    @accountplan.update_attributes(@json['accountplan'])
     if @accountplan.save
       render json: @accountplan
     else
@@ -22,7 +26,7 @@ class AccountplansController < BaseApiController
   end
 
   def update
-    @accountplan.assign_attributes(@json['accountplan'])
+    @accountplan.update_attributes(@json['accountplan'])
     if @accountplan.save
       render json: @accountplan
     else

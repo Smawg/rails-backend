@@ -8,7 +8,8 @@ class VouchersController < BaseApiController
   end
 
   def index
-    @vouchers = Voucher.all
+#    @vouchers = Voucher.all
+    render json: Voucher.all
   end
 
   def show
