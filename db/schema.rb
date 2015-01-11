@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150111154107) do
+ActiveRecord::Schema.define(version: 20150111080000) do
 
   create_table "account_plans", force: true do |t|
     t.string   "name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150111154107) do
     t.integer  "number"
     t.string   "name"
     t.string   "description"
+    t.integer  "account_plan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -40,6 +41,13 @@ ActiveRecord::Schema.define(version: 20150111154107) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "voucher_rows", force: true do |t|
+    t.integer "account_number"
+    t.float   "debet"
+    t.float   "credit"
+    t.integer "voucher_id"
   end
 
   create_table "vouchers", force: true do |t|

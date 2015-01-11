@@ -7,13 +7,17 @@ class VouchersController < BaseApiController
     end
   end
 
+  def index
+    @vouchers = Voucher.all
+  end
+
   def show
-    render json: @voucher
+    render :json => @voucher, :include => {:voucher_rows => {}}
   end
 
   def create
     @voucher = Voucher.new
-    @voucher.assign_attributes(@json['voucher'])
+    @voucher.update_attributes(@json['voucher'])
     if @voucher.save
       render json: @voucher
     else
@@ -22,7 +26,7 @@ class VouchersController < BaseApiController
   end
 
   def update
-    @voucher.assign_attributes(@json['voucher'])
+    @voucher.update_attributes(@json['voucher'])
     if @voucher.save
       render json: @voucher
     else
