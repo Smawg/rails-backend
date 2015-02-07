@@ -1,5 +1,16 @@
 class VouchersController < BaseApiController
+  before_filter :find_organisation
+  before_filter :find_year
   before_filter :find_voucher, only: [:show, :update]
+
+  #before_filter do
+  #  begin
+  #    @year = BusinessYear.find(params[:year])
+  #  rescue
+  #    logger.warn "BusinessYear not found"
+  #    render nothing: true, status: :not_found
+  #  end
+  #end
 
   before_filter only: :update do
     unless @json.has_key?('voucher')
@@ -9,7 +20,11 @@ class VouchersController < BaseApiController
 
   def index
 #    @vouchers = Voucher.all
-    render json: Voucher.all
+#    if params.has_key?('year')
+      render json: @year.vouchers
+#    else
+#      render json: Voucher.all
+#    end
   end
 
   def show
@@ -18,6 +33,8 @@ class VouchersController < BaseApiController
 
   def create
     @voucher = Voucher.new
+    #@voucher.businessyear_id = params[:year]
+    @year.vouchers << @voucher
     @voucher.update_attributes(@json['voucher'])
     if @voucher.save
       render json: @voucher
@@ -36,10 +53,25 @@ class VouchersController < BaseApiController
   end
 
 private
+  def find_organisation
+    @org = Organisation.find_by(name: params[:organisation_id])
+    unless @org
+      render nothing: true, status: :not_found
+    end
+  end
+
+  def find_year
+    @year = BusinessYear.find_by(organisation_id: @org.id, year: params[:businessyear_id])
+    unless @year
+      render nothing: true, status: :not_found
+    end
+  end
+
   def find_voucher
     begin
-      @voucher = Voucher.find(params[:id])
+      @voucher = Vouchers.find_by(organisation_id: @org.id, business_year_id: @year.id, number: params[:id])
     rescue
+      logger.warn "Voucher not found"
       render nothing: true, status: :not_found
     end
   end

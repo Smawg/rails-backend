@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20150111080000) do
   create_table "account_plans", force: true do |t|
     t.string   "name"
     t.string   "description"
+    t.integer  "organisation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -33,7 +34,14 @@ ActiveRecord::Schema.define(version: 20150111080000) do
     t.integer  "year"
     t.datetime "year_start"
     t.datetime "year_end"
+    t.integer  "organisation_id"
     t.integer  "accountplan_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "organisations", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -55,7 +63,7 @@ ActiveRecord::Schema.define(version: 20150111080000) do
     t.integer  "number"
     t.string   "description"
     t.datetime "date"
-    t.integer  "businessyear_id"
+    t.integer  "business_year_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -7,11 +7,18 @@ class InitSchema < ActiveRecord::Migration
       t.timestamps
     end
 
+    create_table :organisations do |t|
+      t.string :name
+
+      t.timestamps
+    end
+
     create_table :business_years do |t|
       t.integer :year
       t.datetime :year_start
       t.datetime :year_end
 
+      t.integer :organisation_id
       t.integer :accountplan_id
 
       t.timestamps
@@ -20,6 +27,8 @@ class InitSchema < ActiveRecord::Migration
     create_table :account_plans do |t|
       t.string :name
       t.string :description
+
+      t.integer :organisation_id
 
       t.timestamps
     end
@@ -39,7 +48,7 @@ class InitSchema < ActiveRecord::Migration
       t.string :description
       t.datetime :date
 
-      t.integer :businessyear_id
+      t.integer :business_year_id
 
       t.timestamps
     end

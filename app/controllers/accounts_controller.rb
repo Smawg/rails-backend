@@ -7,6 +7,10 @@ class AccountsController < BaseApiController
     end
   end
 
+  def index
+    render json: Account.all
+  end
+
   def show
     render json: @account
   end
@@ -33,7 +37,7 @@ class AccountsController < BaseApiController
 private
   def find_account
     begin
-      @account = Account.find(params[:account])
+      @account = Account.find(params[:id])
     rescue
       render nothing: true, status: :not_found
     end
