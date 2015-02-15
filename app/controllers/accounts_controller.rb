@@ -35,10 +35,16 @@ class AccountsController < BaseApiController
   end
 
 private
+  def find_organisation
+    @org = Organisation.findByName(params[:organisation_id])
+    unless @org
+      render nothing: true, status: :not_found
+    end
+  end
+
   def find_account
-    begin
-      @account = Account.find(params[:id])
-    rescue
+    @account = Account.findByNumber(@plan.id, params[:id])
+    unless @account
       render nothing: true, status: :not_found
     end
   end

@@ -4,4 +4,8 @@ class Voucher < ActiveRecord::Base
   validates :number, :presence => true
   validates :date, :presence => true
   accepts_nested_attributes_for :voucher_rows
+
+  def self.findByNumber(year_id, number)
+    find_by(business_year_id: year_id, number: number)
+  end
 end

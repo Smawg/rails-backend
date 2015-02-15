@@ -48,13 +48,13 @@ class VouchersController < BaseApiController
     if @voucher.save
       render json: @voucher
     else
-      render nothing: true, status: bad_request
+      render nothing: true, status: :bad_request
     end
   end
 
 private
   def find_organisation
-    @org = Organisation.find_by(name: params[:organisation_id])
+    @org = Organisation.findByName(params[:organisation_id])
     unless @org
       render nothing: true, status: :not_found
     end
@@ -68,10 +68,8 @@ private
   end
 
   def find_voucher
-    begin
-      @voucher = Vouchers.find_by(organisation_id: @org.id, business_year_id: @year.id, number: params[:id])
-    rescue
-      logger.warn "Voucher not found"
+    @voucher = Voucher.findByNumber(@year.id, params[:id])
+    unless @year
       render nothing: true, status: :not_found
     end
   end
