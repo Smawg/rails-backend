@@ -47,7 +47,7 @@ private
   end
 
   def find_year
-    @year = BusinessYear.find_by(organisation_id: @org.id, year: params[:businessyear_id])
+    @year = BusinessYear.findByYear(@org.id, params[:businessyear_id])
     unless @year
       render nothing: true, status: :not_found
     end

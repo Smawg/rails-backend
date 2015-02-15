@@ -36,7 +36,7 @@ class OrganisationsController < BaseApiController
 
 private
   def find_organisation
-    @org = Organisation.find_by(name: params[:id])
+    @org = Organisation.findByName(params[:id])
     unless @org
       render nothing: true, status: :not_found
     end

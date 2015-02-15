@@ -23,7 +23,7 @@ class BusinessyearsController < BaseApiController
     @year.year = @json['businessyear']['year']
     @year.year_start = @json['businessyear']['year_start']
     @year.year_end = @json['businessyear']['year_end']
-    @year.accountplan_id = AccountPlan.find_by(organisation_id: @org.id, name: @json['businessyear']['accountplan_id']).id
+    @year.accountplan_id = AccountPlan.findByName(@org.id, @json['businessyear']['accountplan_id']).id
 
     @org.business_years << @year
     if @year.save
@@ -44,7 +44,7 @@ class BusinessyearsController < BaseApiController
 
 private
   def find_organisation
-    @org = Organisation.find_by(name: params[:organisation_id])
+    @org = Organisation.findByName(params[:organisation_id])
     unless @org
       render nothing: true, status: :not_found
     end
@@ -52,7 +52,7 @@ private
 
   def find_businessyear
     begin
-      @year = BusinessYear.find_by(organisation_id: @org.id, year: params[:id])
+      @year = BusinessYear.findByYear(@org.id, params[:id])
     rescue
       render nothing: true, status: :not_found
     end
