@@ -2,10 +2,10 @@
 
 one:
   account_number: 1
-  debet: 1.5
+  debit: 1.5
   credit: 1.5
 
 two:
   account_number: 1
-  debet: 1.5
+  debit: 1.5
   credit: 1.5

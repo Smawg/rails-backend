@@ -55,7 +55,7 @@ class InitSchema < ActiveRecord::Migration
 
     create_table :voucher_rows do |t|
       t.integer :account_number
-      t.float :debet
+      t.float :debit
       t.float :credit
 
       t.integer :voucher_id

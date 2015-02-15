@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20150111080000) do
 
   create_table "voucher_rows", force: true do |t|
     t.integer "account_number"
-    t.float   "debet"
+    t.float   "debit"
     t.float   "credit"
     t.integer "voucher_id"
   end
