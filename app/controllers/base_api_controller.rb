@@ -3,6 +3,10 @@ class BaseApiController < ApplicationController
     after_filter :set_access_control_headers
     skip_before_filter :verify_authenticity_token 
 
+  def handle_options_request
+    head(:ok) if request.request_method == "OPTIONS"
+  end
+
     private
        def authenticate_user_from_token!
          #if !@json['api_token']
