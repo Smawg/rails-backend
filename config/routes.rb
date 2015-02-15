@@ -54,6 +54,10 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
+  match '*path', :controller => 'application', :action => 'handle_options_request', via: [:options]
+
+  root 'about#index'
+
   scope '/api' do
     scope '/v1' do
       #resources :users, :accountplans, :accounts, :vouchers

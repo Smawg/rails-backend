@@ -1,5 +1,6 @@
 class BaseApiController < ApplicationController
     before_filter :parse_request, :authenticate_user_from_token!
+    after_filter :set_access_control_headers
     skip_before_filter :verify_authenticity_token 
 
     private
@@ -18,13 +19,16 @@ class BaseApiController < ApplicationController
 
        def parse_request
          begin
-	   headers['Access-Control-Allow-Origin'] = '*'
-	   headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
-	   headers['Access-Control-Request-Method'] = '*'
-	   headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
            @json = JSON.parse(request.body.read)
          rescue
            @json = {}
          end
        end
-    end
+
+       def set_access_control_headers
+	   headers['Access-Control-Allow-Origin'] = '*'
+	   headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
+	   headers['Access-Control-Request-Method'] = '*'
+	   headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+       end
+end
