@@ -10,7 +10,7 @@ class VouchersController < BaseApiController
   end
 
   def index
-      render json: @year.vouchers
+      render json: @year.vouchers, :include => {:voucher_rows => {}}
   end
 
   def show
